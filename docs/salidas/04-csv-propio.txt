@@ -1,0 +1,27 @@
+﻿SET
+BEGIN
+CREATE SCHEMA
+CREATE TABLE
+CREATE TABLE
+COPY 9
+DELETE 1
+SELECT 8
+UPDATE 8
+UPDATE 1
+INSERT 0 1
+INSERT 0 5
+INSERT 0 12
+INSERT 0 3
+ cargadas | rechazadas 
+----------+------------
+        5 |          3
+(1 row)
+
+ linea |           motivo            |                          contenido                           
+-------+-----------------------------+--------------------------------------------------------------
+     7 | isbn repetido en el archivo | 9780000000101,El coronel no tiene quien le escriba (copia),G
+     8 | a├▒o fuera de rango          | 9780000000106,Libro con a├▒o futuro,Autor de Prueba,Novela,21
+     9 | isbn no tiene 13 d├¡gitos    | 978000000010,Libro con ISBN corto,Autor de Prueba,Novela,201
+(3 rows)
+
+COMMIT

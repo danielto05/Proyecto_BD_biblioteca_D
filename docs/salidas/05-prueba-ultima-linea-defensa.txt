@@ -1,0 +1,57 @@
+﻿== CONTEO ANTES ==
+ libros | rechazos 
+--------+----------
+     37 |       49
+(1 row)
+
+== CARGA CON LA REGLA 'titulo vacio' COMENTADA ==
+SET
+BEGIN
+psql:/scripts/prueba-sin-regla-titulo.sql:16: NOTICE:  schema "carga" already exists, skipping
+CREATE SCHEMA
+CREATE TABLE
+psql:/scripts/prueba-sin-regla-titulo.sql:24: NOTICE:  relation "rechazo_carga" already exists, skipping
+CREATE TABLE
+COPY 5
+DELETE 1
+SELECT 4
+UPDATE 4
+UPDATE 0
+INSERT 0 0
+psql:/scripts/prueba-sin-regla-titulo.sql:81: ERROR:  new row for relation "libro" violates check constraint "libro_check"
+DETAIL:  Failing row contains (40, 7, 9780000000203, , Autor Tres, null, 2003, t).
+== CONTEO DESPUES DEL ERROR ==
+ libros | rechazos 
+--------+----------
+     37 |       49
+(1 row)
+
+== CARGA NORMAL (REGLA ACTIVA), MISMO ARCHIVO ==
+SET
+BEGIN
+psql:/scripts/carga-libros.sql:24: NOTICE:  schema "carga" already exists, skipping
+CREATE SCHEMA
+psql:/scripts/carga-libros.sql:32: NOTICE:  relation "rechazo_carga" already exists, skipping
+CREATE TABLE
+CREATE TABLE
+COPY 5
+DELETE 1
+SELECT 4
+UPDATE 4
+UPDATE 0
+INSERT 0 0
+INSERT 0 2
+INSERT 0 3
+INSERT 0 2
+ cargadas | rechazadas 
+----------+------------
+        2 |          2
+(1 row)
+
+ linea |    motivo    |                  contenido                   
+-------+--------------+----------------------------------------------
+     4 | t├¡tulo vac├¡o | 9780000000203,,Autor Tres,Novela,2003,1
+     5 | autor vac├¡o  | 9780000000204,Libro sin autor,,Novela,2004,1
+(2 rows)
+
+COMMIT
